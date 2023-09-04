@@ -1,0 +1,20 @@
+apiVersion: apps/v1 # versão do app que estamos executando no Kubernetes
+kind: Deployment # Tipo de conteúdo que o arquivo trabalha. Um Deploy, ou um volume de dados, ou então um replica
+metadata: # Metadados do deployment
+    name: spring-boot-k8s # nome do deploy dentro do kubernets
+spec: # Especificações
+    selector: # Lable/rotulo
+        matchLabels:
+            app: spring-boot-k8s
+    replicas: 2 # Numero de réplicas da minha aplicação
+    template: # Modelo da aplicação
+        metadata:
+            labels:
+                app: spring-boot-k8s # Nome do Modelo da Aplicação
+        spec:
+            containers: # Container / Imagem da da aplicação
+                - name: spring-boot-k8s # Nome dentro do Kubernetes
+                  image: andre/aula1:latest # Imagem que será usada no cluster
+                  imagePullPolicy: IfNotPresent # Politica de uso da imagens, IfNotPresente, Never
+                  ports:
+                      - containerPort: 8080 # A porta liberada dentro do Cluster
